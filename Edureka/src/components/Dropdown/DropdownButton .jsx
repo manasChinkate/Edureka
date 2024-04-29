@@ -14,7 +14,7 @@ const DropdownButton = ({ icon, options, text }) => {
     <div className="relative">
       {/* Button to toggle the dropdown */}
       <button
-        className="px-4 py-2 focus:outline-none flex items-center hover:bg-headerblue w-full"
+        className="px-4 py-2 focus:outline-none flex items-center hover:bg-headerblue w-full  "
         onClick={toggleDropdown}
       >
         {/* Render icon if provided */}
@@ -29,7 +29,7 @@ const DropdownButton = ({ icon, options, text }) => {
 
       {/* Dropdown menu */}
       {isOpen && (
-        <div className="absolute top-full left-0 w-full z-40 bg-white border border-gray-200 shadow-md mt-1">
+        <div className="absolute top-full left-0 w-full z-40 bg-white border border-gray-200 shadow-md mt-1 ">
           {/* Render options */}
           {options.map((option, index) => (
             <div key={index} className="flex items-center py-2 px-4 hover:bg-headerblue">

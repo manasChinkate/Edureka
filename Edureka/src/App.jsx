@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Page from './components/Page';
 import 'react-dropdown/style.css';
 import { MdDashboard, MdFeedback, MdOutlineAutoGraph, MdArrowDropDown } from "react-icons/md";
@@ -8,6 +8,7 @@ import DropdownButton from './components/Dropdown/DropdownButton '
 import { IoBarChartSharp } from "react-icons/io5";
 import { RiAccountPinBoxFill } from "react-icons/ri";
 import Switchbtn from './components/Switchbtn/Switchbtn';
+
 
 const App = () => {
   // Define columns for the table
@@ -73,58 +74,104 @@ const App = () => {
 
 
   ];
-// Options for dropdown buttons
-const options = [
-  { text: 'Option 1', icon: <MdArrowDropDown /> },
-  { text: 'Option 2', icon: <MdArrowDropDown /> },
-  { text: 'Option 3', icon: <MdArrowDropDown /> },
-];
+  // Options for dropdown buttons
+  const options = [
+    { text: 'Option 1', icon: <MdArrowDropDown /> },
+    { text: 'Option 2', icon: <MdArrowDropDown /> },
+    { text: 'Option 3', icon: <MdArrowDropDown /> },
+  ];
 
-// Account-specific options for dropdown button
-const AccOptions = [
-  { text: 'Account Report', icon: <IoBarChartSharp /> },
-  { text: 'Account Upload', icon: <FaFileUpload /> }
-];
+  // Account-specific options for dropdown button
+  const AccOptions = [
+    { text: 'Account Report', icon: <IoBarChartSharp /> },
+    { text: 'Account Upload', icon: <FaFileUpload /> }
+  ];
+  const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-return (
-  <>
-    {/* Sidebar */}
-    <div className='flex min-h-screen bg-back sticky top-0'>
-      <div className='w-56 bg-white border border-gray-200 shadow-md'>
-        <div className='flex flex-col'>
-          {/* Sidebar buttons */}
-          <button className='px-4 py-2 flex items-center justify-start pl-4 hover:bg-headerblue'>
-            <MdDashboard className='text-xl mr-2' />
-            Dashboard
+
+  const toggleMenu = () => {
+    if (!isMobile) {
+      setIsOpen(!isOpen);
+    }
+  };
+  
+ 
+  
+
+  return (
+    <>
+      {/* Sidebar */}
+      <div className='flex min-h-screen bg-back max-[640px]:flex-col w-full '>
+
+      <div className='w-56 bg-white border border-gray-200 shadow-md   max-[640px]:hidden     '>
+            <div className='flex flex-col   '>
+              {/* Sidebar buttons */}
+              <button className='px-4 py-2 flex items-center justify-start pl-4 hover:bg-headerblue'>
+                <MdDashboard className='text-xl mr-2' />
+                Dashboard
+              </button>
+
+              <DropdownButton icon={<RiAccountPinBoxFill className='text-xl mr-2' />} options={AccOptions} text={'Accounts'} />
+
+              <DropdownButton icon={<BiSolidContact className='text-xl mr-2' />} options={options} text={'Contacts'} />
+              <DropdownButton icon={<MdOutlineAutoGraph className='text-xl mr-2' />} options={options} text={'Lead'} />
+              <DropdownButton icon={<FaHandshake className='text-xl mr-2' />} options={options} text={'Deal'} />
+              <button className='px-4 py-2 flex items-center justify-start pl-4 hover:bg-headerblue'>
+                <MdFeedback className='text-xl mr-2' />
+                Feedback
+              </button>
+            </div>
+          </div>
+        <div className=" min-[640px]:hidden flex justify-end p-5">
+          <button onClick={toggleMenu} className="text-black focus:outline-none">
+            <svg className="h-6 w-6 " fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
           </button>
-          <DropdownButton icon={<RiAccountPinBoxFill className='text-xl mr-2' />} options={AccOptions} text={'Accounts'} />
-          <DropdownButton icon={<BiSolidContact className='text-xl mr-2' />} options={options} text={'Contacts'} />
-          <DropdownButton icon={<MdOutlineAutoGraph className='text-xl mr-2' />} options={options} text={'Lead'} />
-          <DropdownButton icon={<FaHandshake className='text-xl mr-2' />} options={options} text={'Deal'} />
-          <button className='px-4 py-2 flex items-center justify-start pl-4 hover:bg-headerblue'>
-            <MdFeedback className='text-xl mr-2' />
-            Feedback
-          </button>
+       
         </div>
-      </div>
 
-      {/* Main content */}
-      <div className='flex flex-col items-center mx-3 bg-back w-full mb-3'>
-        <div className='h-20 bg-back w-full flex items-end pb-4'>
-          <div>
-            {/* Switch button component */}
-            <Switchbtn />
+        {isOpen &&  (
+          <div className='w-56 bg-white border border-gray-200 shadow-md  max-[390px]:w-full  max-[640px]:w-auto     '>
+            <div className='flex flex-col   '>
+              {/* Sidebar buttons */}
+              <button className='px-4 py-2 flex items-center justify-start pl-4 hover:bg-headerblue'>
+                <MdDashboard className='text-xl mr-2' />
+                Dashboard
+              </button>
+
+              <DropdownButton icon={<RiAccountPinBoxFill className='text-xl mr-2' />} options={AccOptions} text={'Accounts'} />
+
+              <DropdownButton icon={<BiSolidContact className='text-xl mr-2' />} options={options} text={'Contacts'} />
+              <DropdownButton icon={<MdOutlineAutoGraph className='text-xl mr-2' />} options={options} text={'Lead'} />
+              <DropdownButton icon={<FaHandshake className='text-xl mr-2' />} options={options} text={'Deal'} />
+              <button className='px-4 py-2 flex items-center justify-start pl-4 hover:bg-headerblue'>
+                <MdFeedback className='text-xl mr-2' />
+                Feedback
+              </button>
+            </div>
+          </div>
+        )}
+
+
+        {/* Main content */}
+        <div className='flex flex-col items-center mx-3  bg-back w-full mb-3 min-[390px]:w-auto '>
+          <div className='h-20 bg-back w-full flex items-end pb-4'>
+            <div>
+              {/* Switch button component */}
+              <Switchbtn />
+            </div>
+          </div>
+
+          <div className='p-4 bg-white shadow-md rounded-lg border border-gray-200       '>
+            {/* Table component */}
+            <Page columns={columns} data={data} />
           </div>
         </div>
-
-        <div className='p-4 bg-white shadow-md rounded-lg border border-gray-200 w-full'>
-          {/* Table component */}
-          <Page columns={columns} data={data} />
-        </div>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
 }
 
 export default App;

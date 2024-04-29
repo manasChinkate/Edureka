@@ -7,10 +7,9 @@ import { CSVLink } from 'react-csv';
 import { FaFileExcel } from "react-icons/fa";
 
 const Page = ({ columns, data }) => {
-    const [pageIndexInput, setPageIndexInput] = useState(0); // State for input field to manually set page index
-    const [searchInput, setSearchInput] = useState(''); // State for search input
+    const [pageIndexInput, setPageIndexInput] = useState(0);
+    const [searchInput, setSearchInput] = useState('');
 
-    // Destructuring table instance and necessary methods and properties
     const {
         getTableProps,
         getTableBodyProps,
@@ -29,94 +28,82 @@ const Page = ({ columns, data }) => {
         {
             columns,
             data,
-            initialState: { pageIndex: 0 }, // Set initial page index to 0
+            initialState: { pageIndex: 0 },
         },
         useGlobalFilter,
         useSortBy,
         usePagination
     );
 
-    // Handler for input change in page index input field
     const handleInputChange = (e) => {
         setPageIndexInput(e.target.value);
     };
 
-    // Handler for navigating to a specific page
     const handleGoToPage = () => {
-        const pageNumber = pageIndexInput ? Number(pageIndexInput) - 1 : 0; // Convert input value to number and subtract 1 to match zero-based indexing
-        gotoPage(pageNumber); // Go to the specified page
-        setPageIndexInput(''); // Clear the input field
+        const pageNumber = pageIndexInput ? Number(pageIndexInput) - 1 : 0;
+        gotoPage(pageNumber);
+        setPageIndexInput('');
     };
 
-    // Handler for search input change
     const handleSearchChange = (e) => {
-        const value = e.target.value || ''; // Get the value from the input or set to empty string if undefined
-        setSearchInput(value); // Update the search input state
-        setGlobalFilter(value); // Apply global filter to the table
+        const value = e.target.value || '';
+        setSearchInput(value);
+        setGlobalFilter(value);
     };
 
-    // Handler for navigating to the first page
     const gotoFirstPage = () => {
-        gotoPage(0); // Go to the first page
+        gotoPage(0);
     };
 
-    // Handler for navigating to the last page
     const gotoLastPage = () => {
-        gotoPage(pageCount - 1); // Go to the last page (pageCount is 1-based index)
+        gotoPage(pageCount - 1);
     };
 
-    // Define headers for CSV export
     const headers = columns.map(column => ({
         label: column.Header,
         key: column.accessor
     }));
 
-    // Prepare data for CSV export
     const exportData = data.map(row =>
         columns.map(column => row[column.accessor])
     );
 
     return (
         <>
-            {/* Header section */}
-            <div className='flex items-center justify-between '>
-                <div>
-                    <h1 className='text-[30px] font-bold'>Account Lists</h1>
-                    <h2 className='text-fontgray'>Here's a list of your accounts.</h2>
+            <div className='flex flex-col lg:flex-row items-center justify-between w-full'>
+                <div className='lg:w-2/3'>
+                    <h1 className='text-3xl font-bold'>Account Lists</h1>
+                    <h2 className='text-gray-600'>Here's a list of your accounts.</h2>
                 </div>
 
-                <div className=' flex items-center justify-center gap-4'>
-                    {/* CSV export button */}
+                <div className='flex items-center justify-center gap-4 lg:w-1/3 mt-4 lg:mt-0'>
                     <div>
-                        <CSVLink data={exportData} headers={headers} filename={"account-list.csv"} className=' flex items-center justify-center ' ><FaFileExcel className=' text-[20px] text-orange-600' /></CSVLink>
+                        <CSVLink data={exportData} headers={headers} filename={"account-list.csv"} className='flex items-center justify-center'><FaFileExcel className='text-xl text-orange-600' /></CSVLink>
                     </div>
-                    {/* View button */}
                     <div className=''>
-                        <button className='p-1 text-[14px] rounded-md flex items-center justify-center gap-2 border border-gray-300' type="button"><GiSettingsKnobs /> View</button>
+                        <button className='px-3 py-1 text-sm rounded-md flex items-center justify-center gap-1 border border-gray-300' type="button"><GiSettingsKnobs /> View</button>
                     </div>
-                    {/* Search input field */}
                     <div>
                         <input
                             type="text"
                             value={searchInput}
                             onChange={handleSearchChange}
                             placeholder="Search Here..."
-                            className="p-1 pl-2  border border-gray-300 rounded-md h-[32px] text-[14px]"
+                            className="px-2 py-1 border border-gray-300 rounded-md h-10 text-sm"
                         />
                     </div>
                 </div>
             </div>
 
-            {/* Table section */}
-            <div className=' flex items-center justify-center'>
-                <table {...getTableProps()} className=' mt-3 w-full' >
+            <div className=' flex items-center justify-center mt-4 sm:overflow-x-scroll max-[390px]:overflow-x-scroll max-[640px]:overflow-x-scroll w-full '>
+                <table {...getTableProps()}  >
                     <thead>
                         {headerGroups.map(headerGroup => (
                             <tr {...headerGroup.getHeaderGroupProps()} >
                                 {headerGroup.headers.map(column => (
                                     <th
                                         {...column.getHeaderProps(column.getSortByToggleProps())}
-                                        className=' text-[14px] font-bold p-[10px] cursor-pointer text-left bg-headerblue '
+                                        className='px-4 py-2 cursor-pointer text-left bg-blue-500 text-white'
                                     >
                                         {column.render('Header')}
                                         <span>
@@ -133,12 +120,12 @@ const Page = ({ columns, data }) => {
                             return (
                                 <tr
                                     {...row.getRowProps()}
-                                    className={rowIndex % 2 !== 0 ? 'bg-row' : ''}
+                                    className={rowIndex % 2 !== 0 ? 'bg-gray-100' : ''}
                                 >
                                     {row.cells.map(cell => (
                                         <td
                                             {...cell.getCellProps()}
-                                            className='text-[14px] p-[10px] text-left text-fontgray'
+                                            className='px-4 py-2 text-sm text-gray-700'
                                         >
                                             {cell.render('Cell')}
                                         </td>
@@ -150,15 +137,14 @@ const Page = ({ columns, data }) => {
                 </table>
             </div>
 
-            {/* Pagination section */}
-            <div className='flex items-center justify-end gap-2 text-center mt-2'>
+            <div className='flex items-center justify-end gap-2 text-center mt-4'>
                 <div>
                     Page <strong>{pageIndex + 1}</strong> of <strong>{pageCount}</strong>
                 </div>
                 <div>
                     Go to page:{' '}
                     <input
-                        className=' border border-gray-300 rounded w-10 text-center'
+                        className='px-2 py-1 border border-gray-300 rounded w-10 text-center'
                         type="number"
                         value={pageIndexInput}
                         onChange={handleInputChange}
@@ -166,17 +152,16 @@ const Page = ({ columns, data }) => {
                     <button className='ml-2' onClick={handleGoToPage}> Go</button>
                 </div>
                 <div>
-                    {/* Pagination buttons */}
-                    <button className='p-1 border border-gray-300 rounded mr-2 cursor-pointer' onClick={gotoFirstPage} disabled={!canPreviousPage}>
+                    <button className='px-3 py-1 border border-gray-300 rounded cursor-pointer' onClick={gotoFirstPage} disabled={!canPreviousPage}>
                         <MdFirstPage />
                     </button>
-                    <button className='p-1 border border-gray-300 rounded mr-2 cursor-pointer' onClick={previousPage} disabled={!canPreviousPage}>
+                    <button className='px-3 py-1 border border-gray-300 rounded cursor-pointer' onClick={previousPage} disabled={!canPreviousPage}>
                         <GrFormPrevious />
                     </button>
-                    <button className='p-1 border border-gray-300 rounded mr-2 cursor-pointer' onClick={nextPage} disabled={!canNextPage}>
+                    <button className='px-3 py-1 border border-gray-300 rounded cursor-pointer' onClick={nextPage} disabled={!canNextPage}>
                         <GrFormNext />
                     </button>
-                    <button className='p-1 border border-gray-300 rounded cursor-pointer' onClick={gotoLastPage} disabled={!canNextPage}>
+                    <button className='px-3 py-1 border border-gray-300 rounded cursor-pointer' onClick={gotoLastPage} disabled={!canNextPage}>
                         <MdLastPage />
                     </button>
                 </div>
