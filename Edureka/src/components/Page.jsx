@@ -28,7 +28,7 @@ const Page = ({ columns, data }) => {
         {
             columns,
             data,
-            initialState: { pageIndex: 0 },
+            initialState: { pageIndex: 0  },
         },
         useGlobalFilter,
         useSortBy,
@@ -96,25 +96,31 @@ const Page = ({ columns, data }) => {
             </div>
 
             <div className=' flex items-center justify-center mt-4 sm:overflow-x-scroll max-[390px]:overflow-x-scroll max-[640px]:overflow-x-scroll w-full '>
-                <table {...getTableProps()}  >
-                    <thead>
+                <table {...getTableProps()}  > 
+                {/* // Passing instructions on how the table should work. */}
+                    <thead>                   
+                         {/* //Header of table */}
                         {headerGroups.map(headerGroup => (
-                            <tr {...headerGroup.getHeaderGroupProps()} >
+                            <tr {...headerGroup.getHeaderGroupProps()} > 
+                            {/* //This creates a row for each group of headers. */}
                                 {headerGroup.headers.map(column => (
                                     <th
-                                        {...column.getHeaderProps(column.getSortByToggleProps())}
+                                        {...column.getHeaderProps(column.getSortByToggleProps())} // can be clicked to sort.
                                         className='px-4 py-2 cursor-pointer text-left bg-blue-500 text-white'
                                     >
-                                        {column.render('Header')}
+                                        {column.render('Header')} 
+                                        {/* // this will render the text in cell */}
                                         <span>
-                                            {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                                            {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''} 
+                                            {/* //for sorting icon changing  */}
                                         </span>
                                     </th>
                                 ))}
                             </tr>
                         ))}
                     </thead>
-                    <tbody {...getTableBodyProps()}>
+                    <tbody {...getTableBodyProps()}> 
+                    {/* //get properties of table body */}
                         {page.map((row, rowIndex) => {
                             prepareRow(row);
                             return (
