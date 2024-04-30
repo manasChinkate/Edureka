@@ -137,21 +137,21 @@ const Page = ({ columns, data }) => {
                 </table>
             </div>
 
-            <div className='flex items-center justify-end gap-2 text-center mt-4'>
+            <div className='flex items-center justify-end gap-2 text-center mt-4  max-[390px]:flex-wrap max-[390px]:flex-col max-[390px]:gap-4 '>
                 <div>
                     Page <strong>{pageIndex + 1}</strong> of <strong>{pageCount}</strong>
                 </div>
                 <div>
                     Go to page:{' '}
                     <input
-                        className='px-2 py-1 border border-gray-300 rounded w-10 text-center'
+                        className='px-2 py-1 border border-gray-300 rounded w-10 text-center max-[390px]:py-0'
                         type="number"
                         value={pageIndexInput}
                         onChange={handleInputChange}
                     />
                     <button className='ml-2' onClick={handleGoToPage}> Go</button>
                 </div>
-                <div>
+                <div >
                     <button className='px-3 py-1 border border-gray-300 rounded cursor-pointer' onClick={gotoFirstPage} disabled={!canPreviousPage}>
                         <MdFirstPage />
                     </button>

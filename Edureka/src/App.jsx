@@ -156,15 +156,16 @@ const App = () => {
 
 
         {/* Main content */}
-        <div className='flex flex-col items-center mx-3  bg-back w-full mb-3 min-[390px]:w-auto '>
-          <div className='h-20 bg-back w-full flex items-end pb-4'>
+        <div className='flex flex-col items-center   bg-back w-full mb-3 min-[390px]:w-auto '>
+          <div className='h-20 bg-back w-full flex items-end pb-4 ml-[58px]'>
             <div>
               {/* Switch button component */}
               <Switchbtn />
             </div>
           </div>
 
-          <div className='p-4 bg-white shadow-md rounded-lg border border-gray-200       '>
+          <div className='p-4 bg-white shadow-md rounded-lg border m-7  w-[1100px]  border-gray-200 max-[390px]:w-[350px] 
+            max-[728px]:w-auto max-[640px]:w-[560px]        '>
             {/* Table component */}
             <Page columns={columns} data={data} />
           </div>
