@@ -95,44 +95,46 @@ const App = () => {
       setIsOpen(!isOpen);
     }
   };
-  
- 
-  
+
+
+
 
   return (
     <>
       {/* Sidebar */}
       <div className='flex min-h-screen bg-back max-[640px]:flex-col w-full '>
 
-      <div className='w-56 bg-white border border-gray-200 shadow-md   max-[640px]:hidden     '>
-            <div className='flex flex-col   '>
-              {/* Sidebar buttons */}
-              <button className='px-4 py-2 flex items-center justify-start pl-4 hover:bg-headerblue'>
-                <MdDashboard className='text-xl mr-2' />
-                Dashboard
-              </button>
+        <div className='w-56 bg-white border border-gray-200 shadow-md   max-[640px]:hidden     '>
+          <div className='flex flex-col   '>
+            {/* Sidebar buttons */}
+            <button className='px-4 py-2 flex items-center justify-start pl-4 hover:bg-headerblue'>
+              <MdDashboard className='text-xl mr-2' />
+              Dashboard
+            </button>
 
-              <DropdownButton icon={<RiAccountPinBoxFill className='text-xl mr-2' />} options={AccOptions} text={'Accounts'} />
+            <DropdownButton icon={<RiAccountPinBoxFill className='text-xl mr-2' />} options={AccOptions} text={'Accounts'} />
 
-              <DropdownButton icon={<BiSolidContact className='text-xl mr-2' />} options={options} text={'Contacts'} />
-              <DropdownButton icon={<MdOutlineAutoGraph className='text-xl mr-2' />} options={options} text={'Lead'} />
-              <DropdownButton icon={<FaHandshake className='text-xl mr-2' />} options={options} text={'Deal'} />
-              <button className='px-4 py-2 flex items-center justify-start pl-4 hover:bg-headerblue'>
-                <MdFeedback className='text-xl mr-2' />
-                Feedback
-              </button>
-            </div>
+            <DropdownButton icon={<BiSolidContact className='text-xl mr-2' />} options={options} text={'Contacts'} />
+            <DropdownButton icon={<MdOutlineAutoGraph className='text-xl mr-2' />} options={options} text={'Lead'} />
+            <DropdownButton icon={<FaHandshake className='text-xl mr-2' />} options={options} text={'Deal'} />
+            <button className='px-4 py-2 flex items-center justify-start pl-4 hover:bg-headerblue'>
+              <MdFeedback className='text-xl mr-2' />
+              Feedback
+            </button>
           </div>
+        </div>
+
+        
         <div className=" min-[640px]:hidden flex justify-end p-5">
           <button onClick={toggleMenu} className="text-black focus:outline-none">
             <svg className="h-6 w-6 " fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
-       
+
         </div>
 
-        {isOpen &&  (
+        {isOpen && (
           <div className='w-56 bg-white border border-gray-200 shadow-md  max-[390px]:w-full  max-[640px]:w-auto     '>
             <div className='flex flex-col   '>
               {/* Sidebar buttons */}
